@@ -1,0 +1,65 @@
+name: tests
+
+# The whole suite, on every platform, on every supported Python. No `-k`, no
+# `-m`, no marker filters. A package whose job is to refuse an attestation when
+# a claim went unchecked has no business shipping opt-in coverage of its own.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Run tests
+        run: python -m pytest -q
+
+  example-runs:
+    # The tests cover the functions; this covers the claim on the front of the
+    # README — that you can point it at a package and get a verdict. The demo
+    # asserts its own four outcomes, so a regression fails the build rather
+    # than printing something plausible.
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run every example end to end
+        run: |
+          set -e
+          shopt -s nullglob
+          found=0
+          for f in examples/*.py; do
+            echo "-- $f"
+            python "$f"
+            found=1
+          done
+          if [ "$found" -eq 0 ]; then
+            echo "No examples found - this step would pass silently forever." >&2
+            exit 1
+          fi
