@@ -141,6 +141,14 @@ candidate trading edge has to survive before anyone writes code. Same posture:
 the expensive mistake is not missing something, it is certifying something that
 was never there.
 
+## How this was built
+
+This library was developed with substantial help from an AI coding assistant
+(Claude, by Anthropic), working under the author's direction. Every commit that
+contains AI-generated code carries a `Co-Authored-By: Claude` trailer, so the
+provenance of each change is visible in the history. The author reviewed the
+code, runs the test suite, and is responsible for its correctness.
+
 ## Licence
 
 MIT.
