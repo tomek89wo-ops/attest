@@ -1,5 +1,7 @@
 # attest
 
+[![tests](https://github.com/tomek89wo-ops/attest/actions/workflows/tests.yml/badge.svg)](https://github.com/tomek89wo-ops/attest/actions/workflows/tests.yml)
+
 **A review statement that stops matching its own fingerprint the moment anyone edits it.**
 
 An attestation you can edit after issuing it is not an attestation. This package
@@ -132,9 +134,9 @@ python -m pytest -q
 coverage in other people's projects has no business shipping opt-in coverage of
 its own.
 
-Verified so far on **Windows, Python 3.11** only. A CI matrix for Linux, macOS and
-Windows on Python 3.10–3.13 exists but is not enabled in this repository yet;
-until it is, treat every other platform as unverified.
+CI runs all 40 on every push, on Linux, macOS and Windows, on Python 3.10 through
+3.13 — twelve combinations — and then runs every example end to end. The example
+job fails if it finds no examples, so it cannot pass by doing nothing.
 
 ## Related
 
