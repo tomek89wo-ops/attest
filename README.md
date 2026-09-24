@@ -1,7 +1,5 @@
 # attest
 
-[![tests](https://github.com/tomek89wo-ops/attest/actions/workflows/tests.yml/badge.svg)](https://github.com/tomek89wo-ops/attest/actions/workflows/tests.yml)
-
 **A review statement that stops matching its own fingerprint the moment anyone edits it.**
 
 An attestation you can edit after issuing it is not an attestation. This package
@@ -130,9 +128,13 @@ verify_statement(json.load(open("statement.json")))   # False if anything moved
 python -m pytest -q
 ```
 
-40 tests, on Linux, macOS and Windows, on Python 3.10 through 3.13. The whole
-suite, every platform, no marker filters — a package that reports opt-in coverage
-in other people's projects has no business shipping opt-in coverage of its own.
+40 tests, the whole suite, no marker filters — a package that reports opt-in
+coverage in other people's projects has no business shipping opt-in coverage of
+its own.
+
+Verified so far on **Windows, Python 3.11** only. A CI matrix for Linux, macOS and
+Windows on Python 3.10–3.13 exists but is not enabled in this repository yet;
+until it is, treat every other platform as unverified.
 
 ## Related
 
